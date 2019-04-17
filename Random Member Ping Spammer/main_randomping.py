@@ -6,13 +6,12 @@ import subprocess
 import time
 import sys
 import os
+
+pyprefix = sys.argv[1]
 SERVER = input("Server ID: ")
 tokenlist = open("tokens.txt").read().splitlines()
 for token in tokenlist:
-    if sys.platform.startswith('win32'):
-        p = subprocess.Popen(['python','.\\plugins\\randomuserping.py',token,SERVER],stdout=open(os.devnull, "w"), stderr=subprocess.STDOUT)
-    elif sys.platform.startswith('linux'):
-        p = subprocess.Popen(['python','plugins/randomuserping.py',token,SERVER],stdout=open(os.devnull, "w"), stderr=subprocess.STDOUT)
+    p = subprocess.Popen([pyprefix,'plugins/Random Member Ping Spammer/randomuserping.py',token,SERVER],stdout=open(os.devnull, "w"), stderr=subprocess.STDOUT)
     time.sleep(0.1)
     with open('pluginpids', 'a+') as handle:
         handle.write(str(p.pid)+'\n')
